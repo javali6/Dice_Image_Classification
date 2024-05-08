@@ -17,8 +17,8 @@ def main():
     DICE_PATH = 'data/dice.csv'
     # Create a Neptune run object
     run = neptune.init_run(
-        project="input your project name",
-        api_token="input your api token",
+        project="",
+        api_token="==",
     )
     parameters = {
         "dense_units": 64,
