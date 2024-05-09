@@ -1,6 +1,0 @@
-neptune
-torch
-torchvision
-pandas
-scikit-learn
-seaborn

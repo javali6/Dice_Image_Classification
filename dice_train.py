@@ -9,17 +9,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_score
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
-import neptune
 import utilities
 
 
 def main():
     DICE_PATH = 'data/dice.csv'
     # Create a Neptune run object
-    run = neptune.init_run(
-        project="",
-        api_token="==",
-    )
+    # run = neptune.init_run(
+    #     project="jamal-workspace/dice-classification",
+    #     api_token="==",
+    # )
     parameters = {
         "dense_units": 64,
         "kernel_size": 3,
@@ -30,7 +29,7 @@ def main():
         "n_epochs": 20,
         "padding": 1
     }
-    run["model/parameters"] = parameters
+    # run["model/parameters"] = parameters
     # Load the data
     data, labels = utilities.load_data(DICE_PATH)
     data = data.reshape((60000, 28, -1))
@@ -78,8 +77,8 @@ def main():
     # Define the loss function and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(dice_classifier.parameters(), lr=parameters['learning_rate'])
-    run["training/loss_function"] = str(criterion)
-    run["training/optimizer"] = str(optimizer)
+    # run["training/loss_function"] = str(criterion)
+    # run["training/optimizer"] = str(optimizer)
 
     conf_matrix_train = None
     train_y_true = []
@@ -111,12 +110,9 @@ def main():
         print(
             f'Epoch {epoch + 1}/{parameters["n_epochs"]}, Loss: {train_loss / len(train_loader):.4f}'
             f', Accuracy: {train_accuracy:.2f}%', f', Precision: {train_precision:.2f}%')
-        run["training/precision"].log(train_precision)
-        run["training/accuracy"].log(train_accuracy)
-        run["training/loss"].log(train_loss / len(train_loader))
-    # Train the model
-
-    conf_matrix_test = None
+        # run["training/precision"].log(train_precision)
+        # run["training/accuracy"].log(train_accuracy)
+        # run["training/loss"].log(train_loss / len(train_loader))
 
     # Test the model
     correct = 0
@@ -137,8 +133,8 @@ def main():
     conf_matrix_test = confusion_matrix(y_true, y_pred)
 
     print(f'Accuracy on test set: {test_accuracy:.2f}%', f'Precision on test set: {test_precision:.2f}%')
-    run["testing/test_accuracy"] = test_accuracy
-    run["testing/test_precision"] = test_precision
+    # run["testing/test_accuracy"] = test_accuracy
+    # run["testing/test_precision"] = test_precision
 
     plt.figure(figsize=(10, 8))
     sns.heatmap(conf_matrix_train, annot=True, fmt='d', cmap='Blues', xticklabels=np.unique(train_y_true),
@@ -147,7 +143,7 @@ def main():
     plt.ylabel('True Labels')
     plt.title('Confusion Matrix - Train Set')
     plt.savefig('confusion_matrix_train.png')
-    run["training/confusion_matrix"].upload('confusion_matrix_train.png')
+    # run["training/confusion_matrix"].upload('confusion_matrix_train.png')
 
     plt.figure(figsize=(10, 8))
     sns.heatmap(conf_matrix_test, annot=True, fmt='d', cmap='Blues', xticklabels=np.unique(y_true),
@@ -156,11 +152,11 @@ def main():
     plt.ylabel('True Labels')
     plt.title('Confusion Matrix - Test Set')
     plt.savefig('confusion_matrix_test.png')
-    run["testing/confusion_matrix"].upload('confusion_matrix_test.png')
+    # run["testing/confusion_matrix"].upload('confusion_matrix_test.png')
 
     # Save the model
     torch.save(dice_classifier.state_dict(), './dice_classifier.pth')
-    run.stop()
+    # run.stop()
 
 
 if __name__ == "__main__":
