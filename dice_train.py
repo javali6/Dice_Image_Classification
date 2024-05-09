@@ -1,4 +1,3 @@
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -6,9 +5,7 @@ import torch.optim as optim
 from sklearn.metrics import confusion_matrix, precision_score
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
-
 import utilities
-
 
 def main():
     DICE_PATH = "data/dice.csv"
@@ -120,7 +117,6 @@ def main():
         train_precision = 100 * precision_score(
             train_y_true, train_y_pred, average="weighted"
         )
-        conf_matrix_train = confusion_matrix(train_y_true, train_y_pred)
 
         print(
             f'Epoch {epoch + 1}/{parameters["n_epochs"]}, Loss: {train_loss / len(train_loader):.4f}'
@@ -130,6 +126,7 @@ def main():
         # run["training/precision"].log(train_precision)
         # run["training/accuracy"].log(train_accuracy)
         # run["training/loss"].log(train_loss / len(train_loader))
+    conf_matrix_train = confusion_matrix(train_y_true, train_y_pred)
 
     # Test the model
     correct = 0
@@ -157,7 +154,7 @@ def main():
     # run["testing/test_precision"] = test_precision
 
     utilities.plot_confusion_matrix(
-        conf_matrix_test,
+        conf_matrix_train,
         y_true,
         "Confusion Matrix - Test Set",
         "confusion_matrix_test.png",
