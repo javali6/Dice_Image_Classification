@@ -4,7 +4,7 @@ import torch
 
 
 def set_device():
-    return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def load_data(path):
