@@ -1,8 +1,10 @@
-FROM pytorch/pytorch:latest
+FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
 
 WORKDIR /app
 
-RUN pip install numpy matplotlib scikit-learn seaborn neptune-client
+COPY requirements.txt /app/requirements.txtgit s
+RUN pip install --no-cache-dir -r requirements.txt
+
 
 COPY dice_train.py /app/dice_train.py
 COPY utilities.py /app/utilities.py
