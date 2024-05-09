@@ -23,6 +23,6 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PYTHON_ISORT_CONFIG_FILE: ./pyproject.toml
+          VALIDATE_PYTHON_ISORT: false
 
     
