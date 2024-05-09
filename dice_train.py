@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
 import utilities
 
+
 def main():
     DICE_PATH = "data/dice.csv"
     # Create a Neptune run object
