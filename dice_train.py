@@ -129,6 +129,9 @@ def main():
             f", Accuracy: {train_accuracy:.2f}%",
             f", Precision: {train_precision:.2f}%",
         )
+        print(
+            f", Accuracy: {train_accuracy:.2f}%", f", Precision: {train_precision:.2f}%"
+        )
         # run["training/precision"].log(train_precision)
         # run["training/accuracy"].log(train_accuracy)
         # run["training/loss"].log(train_loss / len(train_loader))
@@ -155,8 +158,42 @@ def main():
         f"Accuracy on test set: {test_accuracy:.2f}%",
         f"Precision on test set: {test_precision:.2f}%",
     )
+    print(
+        f"Accuracy on test set: {test_accuracy:.2f}%",
+        f"Precision on test set: {test_precision:.2f}%",
+    )
     # run["testing/test_accuracy"] = test_accuracy
     # run["testing/test_precision"] = test_precision
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(
+        conf_matrix_train,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=np.unique(train_y_true),
+        yticklabels=np.unique(train_y_true),
+    )
+    plt.xlabel("Predicted Labels")
+    plt.ylabel("True Labels")
+    plt.title("Confusion Matrix - Train Set")
+    plt.savefig("confusion_matrix_train.png")
+    # run["training/confusion_matrix"].upload('confusion_matrix_train.png')
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(
+        conf_matrix_test,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=np.unique(y_true),
+        yticklabels=np.unique(y_true),
+    )
+    plt.xlabel("Predicted Labels")
+    plt.ylabel("True Labels")
+    plt.title("Confusion Matrix - Test Set")
+    plt.savefig("confusion_matrix_test.png")
+    # run["testing/confusion_matrix"].upload('confusion_matrix_test.png')
 
     plt.figure(figsize=(10, 8))
     sns.heatmap(
