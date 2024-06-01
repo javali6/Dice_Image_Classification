@@ -10,7 +10,7 @@ import io
 # torch.jit.pickle.ignore_pickle_module()
 cnn_model = my_model.DiceClassifier()
 cnn_model.load_state_dict(
-    torch.load('dice_classifier.pth', map_location=torch.device('cpu'))
+    torch.load("dice_classifier.pth", map_location=torch.device("cpu"))
 )
 cnn_model.eval()
 
@@ -48,7 +48,7 @@ def classify(csv_string):
 input_component = gr.Textbox(lines=10, label="CSV Data")
 output_components = [
     gr.Image(type="pil", label="28x28 Image"),
-    gr.Textbox(label="Predicted Class")
+    gr.Textbox(label="Predicted Class"),
 ]
 
 # Stwórz interfejs
@@ -57,8 +57,8 @@ iface = gr.Interface(
     inputs=input_component,
     outputs=output_components,
     title="CSV Classifier",
-    description="Upload a CSV string with values separated by commas." +
-    " The model will classify the reshaped 28x28 image."
+    description="Upload a CSV string with values separated by commas."
+    + " The model will classify the reshaped 28x28 image."
 )
 
 # Uruchom interfejs
