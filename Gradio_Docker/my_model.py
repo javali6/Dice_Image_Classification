@@ -32,7 +32,6 @@ class DiceClassifier(nn.Module):
         )
         self.fc2 = nn.Linear(self.model_parameters["dense_units"], 6)
 
-
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))

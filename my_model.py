@@ -11,7 +11,7 @@ class DiceClassifier(nn.Module):
         "pool_size": 2,
         "padding": 1,
     }
-    
+
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(

@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
 import neptune
 
-import utilities 
-import  my_model
+import utilities
+import my_model
 
 
 def main():

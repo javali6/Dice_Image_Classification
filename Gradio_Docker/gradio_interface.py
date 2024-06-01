@@ -47,12 +47,13 @@ input_component = gr.Textbox(lines=10, label="CSV Data")
 output_components = [gr.Image(type="pil", label="28x28 Image"), gr.Textbox(label="Predicted Class")]
 
 # Stwórz interfejs
-iface = gr.Interface(fn=classify, 
-    inputs=input_component, 
-    outputs=output_components, 
-    title="CSV Classifier",
-    description="Upload a CSV string with values separated by commas. The model will classify the reshaped 28x28 image."
-    )
+iface = gr.Interface(fn=classify,
+                    inputs=input_component,
+                    outputs=output_components,
+                    title="CSV Classifier",
+                    description="Upload a CSV string with values separated by commas." +
+                    " The model will classify the reshaped 28x28 image."
+)
 
 # Uruchom interfejs
 iface.launch()
