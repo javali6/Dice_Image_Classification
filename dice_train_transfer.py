@@ -30,12 +30,6 @@ def main():
     run["model/transfer/parameters"] = parameters
     # Load the data
     data, labels = utilities.load_data(DICE_PATH)
-    # transform = transforms.Compose([
-    #     transforms.Lambda(lambda x: Image.fromarray(x).convert('L')),  # Konwersja numpy.ndarray na PIL.Image i do odcieni szarości
-    #     transforms.Lambda(lambda x: x.convert('RGB')),  # Konwersja obrazu do 3 kanałów
-    #     # transforms.Grayscale(num_output_channels=3),
-    #     # transforms.ToTensor(),
-    # ])
 
     # data = transform(data)
     data = data.reshape((60000, 28, -1))
