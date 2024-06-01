@@ -20,6 +20,7 @@ cnn_model.eval()
 #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 # ])
 
+
 def classify(csv_string):
     # Wczytaj dane z pliku CSV
     data = pd.read_csv(io.StringIO(csv_string), header=None)
@@ -39,18 +40,19 @@ def classify(csv_string):
     image = Image.fromarray((reshaped_data * 255).astype(np.uint8), mode='L')
     return image, predicted_class + 1
 
+
 # Tworzenie interfejsu Gradio
 # Zdefiniuj komponenty wejścia i wyjścia Gradio
 input_component = gr.Textbox(lines=10, label="CSV Data")
-output_components = [gr.Image(type="pil", label="28x28 Image"), 
-                     gr.Textbox(label="Predicted Class")]
+output_components = [gr.Image(type="pil", label="28x28 Image"), gr.Textbox(label="Predicted Class")]
 
 # Stwórz interfejs
 iface = gr.Interface(fn=classify, 
-                     inputs=input_component, 
-                     outputs=output_components, 
-                     title="CSV Classifier",
-                     description="Upload a CSV string with values separated by commas. The model will classify the reshaped 28x28 image.")
+    inputs=input_component, 
+    outputs=output_components, 
+    title="CSV Classifier",
+    description="Upload a CSV string with values separated by commas. The model will classify the reshaped 28x28 image."
+    )
 
 # Uruchom interfejs
 iface.launch()

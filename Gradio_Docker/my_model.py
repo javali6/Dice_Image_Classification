@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class DiceClassifier(nn.Module):
     model_parameters = {
         "dense_units": 64,
@@ -10,6 +11,7 @@ class DiceClassifier(nn.Module):
         "pool_size": 2,
         "padding": 1,
     }
+
     def __init__(self):
         super().__init__()
         self.conv1 = nn.Conv2d(
@@ -29,6 +31,7 @@ class DiceClassifier(nn.Module):
             self.model_parameters["num_filters"] * 7 * 7, self.model_parameters["dense_units"]
         )
         self.fc2 = nn.Linear(self.model_parameters["dense_units"], 6)
+
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
