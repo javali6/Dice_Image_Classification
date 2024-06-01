@@ -10,8 +10,10 @@ import io
 # torch.jit.pickle.ignore_pickle_module()
 cnn_model = my_model.DiceClassifier()
 cnn_model.load_state_dict(
-    torch.load('dice_classifier.pth',
-    map_location=torch.device('cpu'))
+    torch.load(
+        'dice_classifier.pth',
+        map_location=torch.device('cpu')
+    )
 )
 cnn_model.eval()
 

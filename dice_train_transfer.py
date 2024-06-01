@@ -69,7 +69,7 @@ def main():
         nn.ReLU(),  # Funkcja aktywacji
         nn.Linear(128, 64),  # Druga warstwa gęsta
         nn.ReLU(),  # Funkcja aktywacji
-        nn.Linear(64, 6)  # Warstwa wyjściowa
+        nn.Linear(64, 6),  # Warstwa wyjściowa
     )
 
     # Define the loss function and optimizer
