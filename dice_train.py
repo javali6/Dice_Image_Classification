@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.metrics import confusion_matrix, precision_score
 from sklearn.model_selection import train_test_split
@@ -16,7 +15,7 @@ def main():
     # Create a Neptune run object
     run = neptune.init_run(
         project="jamal-workspace/dice-classification",
-        api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI3MDRkOGU3YS0zYjlmLTRiNWMtODQ1NS0yYmY4OGQ5YjA2YTkifQ==",
+        api_token="==",
     )
     parameters = {
         "learning_rate": 0.001,

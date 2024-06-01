@@ -1,10 +1,7 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 import torchvision.models as models
-from PIL import Image
-from torchvision import transforms
 from sklearn.metrics import confusion_matrix, precision_score
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
@@ -18,7 +15,7 @@ def main():
     # Create a Neptune run object
     run = neptune.init_run(
         project="jamal-workspace/dice-classification",
-        api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI3MDRkOGU3YS0zYjlmLTRiNWMtODQ1NS0yYmY4OGQ5YjA2YTkifQ==",
+        api_token="==",
     )
     parameters = {
         "dense_units": 64,
@@ -74,11 +71,11 @@ def main():
     # Zamień ostatnią warstwę klasyfikacyjną na nową, dopasowaną do naszego zadania
     num_ftrs = resnet.fc.in_features
     resnet.fc = nn.Sequential(
-    nn.Linear(num_ftrs, 128),  # Pierwsza warstwa gęsta
-    nn.ReLU(),  # Funkcja aktywacji
-    nn.Linear(128, 64),  # Druga warstwa gęsta
-    nn.ReLU(),  # Funkcja aktywacji
-    nn.Linear(64, 6)  # Warstwa wyjściowa
+        nn.Linear(num_ftrs, 128),  # Pierwsza warstwa gęsta
+        nn.ReLU(),  # Funkcja aktywacji
+        nn.Linear(128, 64),  # Druga warstwa gęsta
+        nn.ReLU(),  # Funkcja aktywacji
+        nn.Linear(64, 6)  # Warstwa wyjściowa
     )
 
     # Define the loss function and optimizer

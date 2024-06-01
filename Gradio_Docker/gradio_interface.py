@@ -23,27 +23,20 @@ cnn_model.eval()
 def classify(csv_string):
     # Wczytaj dane z pliku CSV
     data = pd.read_csv(io.StringIO(csv_string), header=None)
-    
     # Konwertuj dane do numpy array
     data_array = data.to_numpy().astype(np.float32) / 255
-    
     # Reshape do rozmiaru 28x28
     reshaped_data = data_array.reshape(28, 28)
-    
     # Konwertuj do tensora
     tensor = torch.tensor(reshaped_data).unsqueeze(0).unsqueeze(0)
-    
     # Przekaż dane przez model
     with torch.no_grad():
         output = cnn_model(tensor)
-    
     # Pobierz przewidywaną klasę
     _, predicted = torch.max(output, 1)
     predicted_class = predicted.item()
-    
     # Utwórz obraz z reshaped_data
     image = Image.fromarray((reshaped_data * 255).astype(np.uint8), mode='L')
-    
     return image, predicted_class + 1
 
 # Tworzenie interfejsu Gradio
