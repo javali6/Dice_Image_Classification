@@ -58,7 +58,7 @@ iface = gr.Interface(
     outputs=output_components,
     title="CSV Classifier",
     description="Upload a CSV string with values separated by commas."
-    + " The model will classify the reshaped 28x28 image."
+    + " The model will classify the reshaped 28x28 image.",
 )
 
 # Uruchom interfejs
