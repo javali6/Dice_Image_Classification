@@ -2,7 +2,9 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import torch
+import torch.nn as nn
 from matplotlib import pyplot as plt
+import torch.nn.functional as F
 
 
 def set_device():
