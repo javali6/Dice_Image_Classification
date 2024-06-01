@@ -9,7 +9,10 @@ import io
 # Wczytaj model
 # torch.jit.pickle.ignore_pickle_module()
 cnn_model = my_model.DiceClassifier()
-cnn_model.load_state_dict(torch.load('dice_classifier.pth', map_location=torch.device('cpu')))
+cnn_model.load_state_dict(
+    torch.load('dice_classifier.pth',
+    map_location=torch.device('cpu'))
+)
 cnn_model.eval()
 
 # Definiowanie transformacji obrazu
@@ -44,7 +47,10 @@ def classify(csv_string):
 # Tworzenie interfejsu Gradio
 # Zdefiniuj komponenty wejścia i wyjścia Gradio
 input_component = gr.Textbox(lines=10, label="CSV Data")
-output_components = [gr.Image(type="pil", label="28x28 Image"), gr.Textbox(label="Predicted Class")]
+output_components = [
+    gr.Image(type="pil", label="28x28 Image"),
+    gr.Textbox(label="Predicted Class")
+]
 
 # Stwórz interfejs
 iface = gr.Interface(

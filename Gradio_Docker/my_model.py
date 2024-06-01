@@ -28,7 +28,8 @@ class DiceClassifier(nn.Module):
         )
         self.pool = nn.MaxPool2d(self.model_parameters["pool_size"], 2)
         self.fc1 = nn.Linear(
-            self.model_parameters["num_filters"] * 7 * 7, self.model_parameters["dense_units"]
+            self.model_parameters["num_filters"] * 7 * 7, 
+            self.model_parameters["dense_units"]
         )
         self.fc2 = nn.Linear(self.model_parameters["dense_units"], 6)
 
