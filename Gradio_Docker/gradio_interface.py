@@ -10,10 +10,7 @@ import io
 # torch.jit.pickle.ignore_pickle_module()
 cnn_model = my_model.DiceClassifier()
 cnn_model.load_state_dict(
-    torch.load(
-        'dice_classifier.pth',
-        map_location=torch.device('cpu')
-    )
+    torch.load('dice_classifier.pth', map_location=torch.device('cpu'))
 )
 cnn_model.eval()
 
@@ -42,7 +39,7 @@ def classify(csv_string):
     _, predicted = torch.max(output, 1)
     predicted_class = predicted.item()
     # Utwórz obraz z reshaped_data
-    image = Image.fromarray((reshaped_data * 255).astype(np.uint8), mode='L')
+    image = Image.fromarray((reshaped_data * 255).astype(np.uint8), mode="L")
     return image, predicted_class + 1
 
 

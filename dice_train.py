@@ -129,7 +129,7 @@ def main():
         "Confusion Matrix - Test Set",
         "confusion_matrix_test.png",
     )
-    run["training/confusion_matrix"].upload('confusion_matrix_train.png')
+    run["training/confusion_matrix"].upload("confusion_matrix_train.png")
 
     utilities.plot_confusion_matrix(
         conf_matrix_test,
@@ -137,7 +137,7 @@ def main():
         "Confusion Matrix - Test Set",
         "confusion_matrix_test.png",
     )
-    run["testing/confusion_matrix"].upload('confusion_matrix_test.png')
+    run["testing/confusion_matrix"].upload("confusion_matrix_test.png")
 
     # Save the model
     torch.save(dice_classifier.state_dict(), "/app/output/dice_classifier.pth")
