@@ -1,30 +1,26 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.metrics import confusion_matrix, precision_score
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
+import neptune
 
 import utilities
+import my_model
 
 
 def main():
     DICE_PATH = "data/dice.csv"
     # Create a Neptune run object
-    # run = neptune.init_run(
-    #     project="jamal-workspace/dice-classification",
-    #     api_token="==",
-    # )
+    run = neptune.init_run(
+        project="jamal-workspace/dice-classification",
+        api_token="==",
+    )
     parameters = {
-        "dense_units": 64,
-        "kernel_size": 3,
-        "num_filters": 64,
-        "pool_size": 2,
         "learning_rate": 0.001,
         "batch_size": 36,
         "n_epochs": 20,
-        "padding": 1,
     }
     # run["model/parameters"] = parameters
     # Load the data
@@ -55,36 +51,8 @@ def main():
     )
 
     # Define the model
-    class DiceClassifier(nn.Module):
-        def __init__(self):
-            super().__init__()
-            self.conv1 = nn.Conv2d(
-                1,
-                32,
-                kernel_size=parameters["kernel_size"],
-                padding=parameters["padding"],
-            )
-            self.conv2 = nn.Conv2d(
-                32,
-                64,
-                kernel_size=parameters["kernel_size"],
-                padding=parameters["padding"],
-            )
-            self.pool = nn.MaxPool2d(parameters["pool_size"], 2)
-            self.fc1 = nn.Linear(
-                parameters["num_filters"] * 7 * 7, parameters["dense_units"]
-            )
-            self.fc2 = nn.Linear(parameters["dense_units"], 6)
 
-        def forward(self, x):
-            x = self.pool(F.relu(self.conv1(x)))
-            x = self.pool(F.relu(self.conv2(x)))
-            x = x.view(-1, 64 * 7 * 7)
-            x = torch.relu(self.fc1(x))
-            x = self.fc2(x)
-            return x
-
-    dice_classifier = DiceClassifier()
+    dice_classifier = my_model.DiceClassifier()
 
     # Define the loss function and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -161,7 +129,7 @@ def main():
         "Confusion Matrix - Test Set",
         "confusion_matrix_test.png",
     )
-    # run["training/confusion_matrix"].upload('confusion_matrix_train.png')
+    run["training/confusion_matrix"].upload("confusion_matrix_train.png")
 
     utilities.plot_confusion_matrix(
         conf_matrix_test,
@@ -169,10 +137,10 @@ def main():
         "Confusion Matrix - Test Set",
         "confusion_matrix_test.png",
     )
-    # run["testing/confusion_matrix"].upload('confusion_matrix_test.png')
+    run["testing/confusion_matrix"].upload("confusion_matrix_test.png")
 
     # Save the model
-    torch.save(dice_classifier.state_dict(), "./dice_classifier.pth")
+    torch.save(dice_classifier.state_dict(), "/app/output/dice_classifier.pth")
     # run.stop()
 
 
